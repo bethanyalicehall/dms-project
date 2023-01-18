@@ -34,7 +34,11 @@
          <div class="row">
             <div class="input-field col s12">
                 <label for="is_urgent">
-                    <input id="is_urgent" name="is_urgent" type="checkbox">
+                    {% if task.is_urgent == True %}
+                        <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+                    {% else %}
+                        <input id="is_urgent" name="is_urgent" type="checkbox">
+                    {% endif %}
                     <span class="lever"></span>
                     Is Urgent
                 </label>
@@ -44,9 +48,13 @@
         <div class="row">
             <div class="input-field col s12">
                 <select id="category_id" name="category_id" class="validate" required>
-                    <option value="" disabled selected>Choose Category</option>
+                    <option value="" disabled>Choose Category</option>
                     {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% if category == task.category %}
+                            <option value="{{ category.id }}" selected>{{ category.category_name }}</option>
+                        {% else %}
+                            <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
                 <label for="category_id">Category</label>
